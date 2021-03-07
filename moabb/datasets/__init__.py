@@ -7,6 +7,7 @@ different recording sessions per subject or to evaluate them separately.
 # flake8: noqa
 from .gigadb import Cho2017
 from .alex_mi import AlexMI
+from .BCIComp import Dataset4a
 from .physionet_mi import PhysionetMI
 from .bnci import (BNCI2014001, BNCI2014002, BNCI2014004, BNCI2014008,
                    BNCI2014009, BNCI2015001, BNCI2015003, BNCI2015004)

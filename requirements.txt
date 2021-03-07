@@ -1,8 +1,8 @@
-scikit-learn<0.24.0  # 0.24.0 breaks pyriemann, requires https://github.com/alexandrebarachant/pyRiemann/pull/93
-mne >= 0.19
+scikit-learn
+mne
 pyriemann
-matplotlib >= 2.2
-seaborn >= 0.9.0
+matplotlib
+seaborn
 h5py
 pandas
 pyyaml
@@ -11,7 +11,8 @@ sphinx-gallery
 sphinx-bootstrap_theme
 numpydoc
 pillow
-m2r
+requests
+m2r2
 patool
 pyunpack
 wfdb

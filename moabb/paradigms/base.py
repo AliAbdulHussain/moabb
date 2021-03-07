@@ -113,7 +113,7 @@ class BaseParadigm(metaclass=ABCMeta):
                                                         event_id=event_id,
                                                         verbose=False)
             except ValueError:
-                log.warning("No matching annotations in {}"
+                log.warning("no matching annotations in {}"
                             .format(raw.filenames))
                 return
 
@@ -125,7 +125,9 @@ class BaseParadigm(metaclass=ABCMeta):
 
         # pick events, based on event_id
         try:
+            # print('before:', events[:10])
             events = mne.pick_events(events, include=list(event_id.values()))
+            # print('after:', events[:10])
         except RuntimeError:
             # skip raw if no event found
             return
