@@ -8,6 +8,9 @@ from mne.datasets.utils import _get_path, _do_path_update
 from mne.utils import _fetch_file, _url_to_local_path, verbose
 from mne import get_config, set_config
 import os.path as osp
+import logging
+
+log = logging.getLogger()
 
 
 @verbose
@@ -46,6 +49,18 @@ def data_path(url, sign, path=None, force_update=False, update_path=True,
         of length one, for compatibility.
 
     """  # noqa: E501
+    destination, key, path = create_destination(url, sign, path=path, force_update=force_update)
+    # Fetch the file
+    if not op.isfile(destination) or force_update:
+        log.info('Fetch files from {} to {}'.format(url, destination))
+        _fetch_file(url, destination, print_destination=False)
+
+    # Offer to update the path
+    _do_path_update(path, update_path, key, sign)
+    return destination
+
+
+def create_destination(url, sign, path=None, force_update=None):
     sign = sign.upper()
     key = 'MNE_DATASETS_{:s}_PATH'.format(sign)
     key_dest = 'MNE-{:s}-data'.format(sign.lower())
@@ -59,8 +74,4 @@ def data_path(url, sign, path=None, force_update=False, update_path=True,
             os.remove(destination)
         if not op.isdir(op.dirname(destination)):
             os.makedirs(op.dirname(destination))
-        _fetch_file(url, destination, print_destination=False)
-
-    # Offer to update the path
-    _do_path_update(path, update_path, key, sign)
-    return destination
+    return destination, key, path
